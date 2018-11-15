@@ -40,9 +40,11 @@ It's assumed that if you're reading this, you have at least a grasp of what moto
 
 ##Package Implementation
 
-Install the package from the Comprehensive R Archive Network and attach it to your workspace with the following functions.
+Install the package from the Comprehensive R Archive Network or Github and attach it to your workspace with the following functions.
 ```{r eval = FALSE}
 install.packages("motoRneuron")
+install.pacakges("devtools")
+devtools::install_github("tweedell/motoRneuron")
 ```
 ```{r results = "hide", message=FALSE, warning=FALSE}
 library(motoRneuron)

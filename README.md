@@ -29,10 +29,12 @@ It's assumed that if you're reading this, you have at least a grasp of what moto
 Package Implementation
 ----------------------
 
-Install the package from the Comprehensive R Archive Network and attach it to your workspace with the following functions.
+Install the package from the Comprehensive R Archive Network or Github and attach it to your workspace with the following functions.
 
 ``` r
 install.packages("motoRneuron")
+install.pacakges("devtools")
+devtools::install_github("tweedell/motoRneuron")
 ```
 
 ``` r
@@ -89,7 +91,7 @@ Calculating `recurrence_intervals()`
 ------------------------------------
 
 `recurrence_intervals()` calculates the recurrence intervals based on how many *recurrence interval orders* is specified (see image below). Specifically, they are calculated as the timing difference between a discharge event in one (reference) motor unit and the nearest forward and nearest backward discharge events in another (event) motor unit. The motor unit used as the reference unit is the unit with *fewer* discharges. Order refers to how many discharges before and after we are including in our calculations. Default settings are for first order recurrence intervals as previous research has shown that false peaks are likely to appear with higher orders.
-<img src="Recurrence_intervals.jpg" width="100%" />
+<img src="./vignettes/Recurrence_intervals.jpg" width="100%" />
 
 The function takes the vector arguments motor\_unit\_1 and motor\_unit\_2 containing activation times, along with an integer indicating the order. The code below calculates the time differences between the reference activation and the first and second forward and backward discharges from the event motor unit.
 
@@ -301,7 +303,7 @@ Peak location is also returned with the Synchronization Indices:
 
 Visual determination of peaks in a cross correlation histogram takes a more subjective approach than other automated detection algorithms. Investigators are usually asked where they see peaks, but as bin count or bin frequency can vary greatly, discerning areas of greater frequncy can be difficult for the human eye. To make it easier, the mean baseline bin frequency (considered the mean frequncy of bins &gt;= -0.06 s and &lt;= 0.06 s) is subtracted from each bin. Then the cumulative sum is taken from these normlized bins. This method allows for normally difficult to see increases in frequency (or peaks) to show up as deflections in the graph. The boundaries of these deflections are the boundaries of the peak. When called, this function automatically configures the normalized cumulative sum then leverages the dygraphs package to interactively display it for the user to view and determine peak boundaries.
 
-![](Dygraph_Cumulative_Sum_Graph.png)
+![](./vignettes/Dygraph_Cumulative_Sum_Graph.png)
 
 In the graph above you see the x-axis is just like the bins of the cross correlation histogram, representing the time difference between firings of the motor units. The y-axis notes the normalized cumulative sum values for each bin. The mouse can be used to drag a vertical cursor along the graph. This will display x and y values.
 
@@ -338,4 +340,3 @@ Another automated method for peak determination is the z-score method, which rel
 ``` r
 zscore_mu_synch(motor_unit_1, motor_unit_2, order = 1, binwidth = 0.001, get_data = T, plot = F)
 ```
-# motoRneuron
