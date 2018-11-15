@@ -1,0 +1,834 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={motoRneuron},
+            pdfauthor={Andrew Tweedell},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{motoRneuron}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{Andrew Tweedell}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+      \predate{\centering\large\emph}
+  \postdate{\par}
+    \date{September 19, 2018}
+
+
+\begin{document}
+\maketitle
+
+\section{Using motoRneuron for motor unit
+synchronization}\label{using-motorneuron-for-motor-unit-synchronization}
+
+The purpose of this vignette is get you started using the
+\texttt{motoRneuron} package for analyzing time-domain motor unit
+synchronization, even if you've never used R before! So we will show you
+how to install the toolbox through CRAN, access the functions, help
+files, and sample motor unit data. Next, we will provide code to get
+typical time series data into a workable format for our functions. Then
+we will go step by step through some analyses with this sample data to
+demonstrate its applicability.
+
+\subsection{Time-domain
+synchronization}\label{time-domain-synchronization}
+
+It's assumed that if you're reading this, you have at least a grasp of
+what motor unit synchronization means and what you hope to get out of
+this package. But breifly, time-domain synchronization, in the
+neuromuscular context we are presenting it, is the tendency of separate
+motor units (i.e.~motor neurons and their associated muscle fibers) to
+discharge near-simultaneously (within 1 - 5 ms of each other) more often
+than would be expected by chance. It is often interpreted as an
+indicator of functional connectivity between motor neurons through
+common excitatory post-synaptic potentials. This is quanitified by a
+cross-correlation analyses, which is essentially the core of this
+package. A peak in the resulting cross-correlation histogram represents
+a higher probability of discharges at that latency. Indices that
+quantify the magnitude of the peak are the primary outputs for the
+package
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\tightlist
+\item
+  \texttt{recurrence\_intervals()} correlates the discharge times of one
+  motor unit against those of another with motor unit.
+\item
+  \texttt{bin()} creates cross-correlation histogram from the recurrence
+  intervals.
+\item
+  \texttt{mu\_synch()} is an all-in-one function that automatically
+  performs the cross-correlation process above and assesses the
+  histogram for peaks. 6 commonly used synchronization indices are
+  returned.
+\item
+  3 methods of peak determination are available as individual functions
+  as well.
+
+  \begin{enumerate}
+  \def\labelenumii{\arabic{enumii})}
+  \tightlist
+  \item
+    \texttt{visual\_mu\_synch()} - Visual method
+  \item
+    \texttt{cumsum\_mu\_synch()} - Cumulative Sum (Cumsum) method
+  \item
+    \texttt{zscore\_mu\_synch()} - Zscore method
+  \end{enumerate}
+\end{enumerate}
+
+\subsection{Package Implementation}\label{package-implementation}
+
+Install the package off the Comprehensive R Archive Network and attach
+it to your workspace with the following functions.
+
+\begin{verbatim}
+install.packages("motoRneuron")
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(motoRneuron)}
+\end{Highlighting}
+\end{Shaded}
+
+View the package or any of the function help files by using `?'.
+
+\begin{verbatim}
+?motoRneuron
+?mu_synch
+\end{verbatim}
+
+\subsection{Data: motor\_unit\_data}\label{data-motor_unit_data}
+
+Let's load the sample motor unit data frame from the package into the
+working environment and look at it before we play around with it. The
+data is 30 seconds of 2 concurrently active motor units discharging at
+semi-regular intervals sampled at 1000 Hz.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{motor_unit_data <-}\StringTok{ }\NormalTok{motoRneuron}\OperatorTok{::}\NormalTok{motor_unit_data}
+\KeywordTok{head}\NormalTok{(motor_unit_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Time motor_unit_1 motor_unit_2
+## 1 0.000            0            0
+## 2 0.001            0            0
+## 3 0.002            0            0
+## 4 0.003            0            0
+## 5 0.004            0            0
+## 6 0.005            0            0
+\end{verbatim}
+
+You'll see our first column is Time in seconds. Makes sense. The other
+columns indicate what motor units are active with 1's indicating a
+discharge at that time point. But the synchronization functions say they
+want the actual discharge times as inputs\ldots{} so how do I get that?
+We'll help you out. We included this step because this is a commonly
+used format for time series data like motor unit discharges. So to get
+the data in a usable form for our functions, we will have to subset out
+only the time points the motor unit has a 1.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{motor_unit_}\DecValTok{1}\NormalTok{ <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{Time =}\NormalTok{ motor_unit_data[[}\StringTok{"Time"}\NormalTok{]], }\DataTypeTok{MotorUnit1 =}\NormalTok{ motor_unit_data[[}\DecValTok{2}\NormalTok{]]) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{subset}\NormalTok{(. , MotorUnit1 }\OperatorTok{==}\DecValTok{1}\NormalTok{) }
+\NormalTok{motor_unit_}\DecValTok{1}\NormalTok{ <-}\StringTok{ }\KeywordTok{as.vector}\NormalTok{(motor_unit_}\DecValTok{1}\OperatorTok{$}\NormalTok{Time)}
+\NormalTok{motor_unit_}\DecValTok{2}\NormalTok{ <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{Time =}\NormalTok{ motor_unit_data[[}\StringTok{"Time"}\NormalTok{]], }\DataTypeTok{MotorUnit2 =}\NormalTok{ motor_unit_data[[}\DecValTok{3}\NormalTok{]]) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{subset}\NormalTok{(. , MotorUnit2 }\OperatorTok{==}\DecValTok{1}\NormalTok{)}
+\NormalTok{motor_unit_}\DecValTok{2}\NormalTok{ <-}\StringTok{ }\KeywordTok{as.vector}\NormalTok{(motor_unit_}\DecValTok{2}\OperatorTok{$}\NormalTok{Time)}
+\end{Highlighting}
+\end{Shaded}
+
+You'll see the individual motor unit data is now in vector format
+containing only the time points of discharge.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{head}\NormalTok{(motor_unit_}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.035 0.115 0.183 0.250 0.306 0.377
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{head}\NormalTok{(motor_unit_}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.100 0.205 0.298 0.377 0.471 0.577
+\end{verbatim}
+
+So we've got our data in a format that are \texttt{motoRneuron}
+functions will take.
+
+\subsection{\texorpdfstring{Calculating
+\texttt{recurrence\_intervals()}}{Calculating recurrence\_intervals()}}\label{calculating-recurrence_intervals}
+
+\texttt{recurrence\_intervals()} calculates the recurrence intervals
+based on how many \emph{recurrence interval orders} is specified (see
+image below). Specifically they calculated as the timing difference
+between a discharge event in one (reference) motor unit and the nearest
+forward and nearest backward discharge events in another (event) motor
+unit. The motor unit used as the reference unit is the unit with
+\emph{fewer} discharges. Order refers to how many discharges before and
+after we are calculating. Default settings are for first order
+recurrence intervals only as previous research has shown false peaks are
+likely with higher orders.
+
+\includegraphics[width=1\linewidth]{C:/Users/andrew.tweedell.ctr/Desktop/Synch Working Folder/R Package Creation/motoRneuron/images/Recurrence_Intervals_D iagram}
+The function takes the vector arguments motor\_unit\_1 and
+motr\_unit\_2, along with a numeric indicating the order. The code below
+only returns the first forward and first backward discharges.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{recur <-}\StringTok{ }\KeywordTok{recurrence_intervals}\NormalTok{(motor_unit_}\DecValTok{1}\NormalTok{, motor_unit_}\DecValTok{2}\NormalTok{, }\DataTypeTok{order =} \DecValTok{1}\NormalTok{)}
+\NormalTok{recur}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $Reference_Unit
+## [1] "motor_unit_2"
+## 
+## $Number_of_Reference_Discharges
+## [1] 307
+## 
+## $Reference_ISI
+##   [1] 0.105 0.093 0.079 0.094 0.106 0.087 0.075 0.104 0.102 0.101 0.113
+##  [12] 0.125 0.082 0.096 0.096 0.096 0.108 0.077 0.107 0.091 0.094 0.089
+##  [23] 0.081 0.095 0.035 0.087 0.098 0.112 0.094 0.106 0.087 0.102 0.095
+##  [34] 0.101 0.084 0.106 0.078 0.089 0.096 0.099 0.077 0.075 0.091 0.100
+##  [45] 0.105 0.099 0.128 0.129 0.076 0.091 0.129 0.087 0.099 0.120 0.126
+##  [56] 0.098 0.050 0.154 0.106 0.116 0.108 0.103 0.082 0.149 0.116 0.110
+##  [67] 0.116 0.088 0.072 0.068 0.097 0.114 0.076 0.103 0.097 0.091 0.141
+##  [78] 0.122 0.081 0.095 0.101 0.101 0.150 0.101 0.074 0.126 0.084 0.169
+##  [89] 0.095 0.108 0.100 0.106 0.118 0.097 0.111 0.086 0.118 0.090 0.079
+## [100] 0.095 0.126 0.107 0.148 0.094 0.092 0.142 0.146 0.082 0.091 0.089
+## [111] 0.088 0.153 0.084 0.076 0.105 0.088 0.144 0.075 0.127 0.095 0.105
+## [122] 0.081 0.090 0.069 0.103 0.077 0.088 0.092 0.096 0.106 0.136 0.059
+## [133] 0.103 0.086 0.102 0.094 0.093 0.121 0.111 0.063 0.083 0.090 0.123
+## [144] 0.099 0.048 0.101 0.061 0.058 0.066 0.089 0.035 0.073 0.070 0.085
+## [155] 0.095 0.144 0.104 0.097 0.098 0.118 0.095 0.083 0.079 0.076 0.082
+## [166] 0.078 0.137 0.093 0.076 0.105 0.065 0.072 0.089 0.112 0.081 0.090
+## [177] 0.125 0.060 0.097 0.127 0.081 0.101 0.096 0.115 0.091 0.093 0.111
+## [188] 0.086 0.089 0.099 0.081 0.097 0.087 0.093 0.096 0.084 0.078 0.089
+## [199] 0.071 0.088 0.099 0.088 0.117 0.110 0.079 0.162 0.095 0.096 0.078
+## [210] 0.077 0.062 0.078 0.083 0.089 0.098 0.176 0.123 0.149 0.076 0.145
+## [221] 0.102 0.086 0.111 0.138 0.113 0.091 0.124 0.089 0.088 0.153 0.085
+## [232] 0.088 0.091 0.097 0.142 0.099 0.089 0.080 0.096 0.072 0.106 0.071
+## [243] 0.111 0.106 0.093 0.101 0.086 0.098 0.077 0.095 0.099 0.092 0.170
+## [254] 0.091 0.103 0.107 0.107 0.092 0.083 0.106 0.120 0.080 0.065 0.186
+## [265] 0.125 0.076 0.100 0.108 0.077 0.057 0.063 0.104 0.078 0.089 0.175
+## [276] 0.074 0.072 0.116 0.097 0.074 0.090 0.121 0.095 0.103 0.092 0.083
+## [287] 0.095 0.089 0.106 0.077 0.082 0.093 0.092 0.106 0.102 0.086 0.094
+## [298] 0.093 0.095 0.107 0.112 0.092 0.116 0.066 0.090 0.093
+## 
+## $Mean_Reference_ISI
+## [1] 0.098
+## 
+## $Event_Unit
+## [1] "motor_unit_1"
+## 
+## $Number_of_Event_Discharges
+## [1] 443
+## 
+## $Event_ISI
+##   [1] 0.080 0.068 0.067 0.056 0.071 0.078 0.057 0.065 0.079 0.083 0.082
+##  [12] 0.045 0.084 0.064 0.071 0.068 0.060 0.066 0.076 0.076 0.051 0.069
+##  [23] 0.080 0.061 0.057 0.083 0.065 0.067 0.066 0.076 0.043 0.080 0.073
+##  [34] 0.082 0.036 0.085 0.087 0.052 0.078 0.079 0.069 0.056 0.085 0.087
+##  [45] 0.085 0.069 0.067 0.076 0.074 0.091 0.029 0.077 0.078 0.084 0.048
+##  [56] 0.067 0.077 0.084 0.054 0.058 0.082 0.083 0.032 0.087 0.064 0.089
+##  [67] 0.083 0.052 0.061 0.083 0.081 0.065 0.056 0.099 0.050 0.071 0.092
+##  [78] 0.064 0.076 0.099 0.062 0.085 0.088 0.066 0.055 0.084 0.066 0.069
+##  [89] 0.077 0.047 0.088 0.082 0.077 0.071 0.068 0.082 0.081 0.052 0.086
+## [100] 0.052 0.089 0.053 0.068 0.088 0.091 0.052 0.089 0.086 0.056 0.062
+## [111] 0.093 0.073 0.053 0.072 0.066 0.070 0.048 0.064 0.075 0.021 0.091
+## [122] 0.082 0.066 0.067 0.062 0.085 0.050 0.069 0.067 0.074 0.073 0.078
+## [133] 0.049 0.070 0.075 0.071 0.055 0.087 0.073 0.049 0.085 0.067 0.074
+## [144] 0.073 0.059 0.070 0.055 0.071 0.087 0.054 0.068 0.071 0.058 0.083
+## [155] 0.095 0.046 0.079 0.074 0.077 0.071 0.056 0.064 0.082 0.066 0.076
+## [166] 0.062 0.060 0.076 0.066 0.062 0.057 0.085 0.066 0.056 0.067 0.064
+## [177] 0.044 0.072 0.048 0.067 0.062 0.065 0.082 0.105 0.027 0.080 0.086
+## [188] 0.040 0.065 0.086 0.025 0.084 0.068 0.065 0.058 0.068 0.041 0.082
+## [199] 0.045 0.079 0.066 0.078 0.062 0.052 0.083 0.049 0.068 0.056 0.069
+## [210] 0.050 0.069 0.071 0.073 0.062 0.068 0.048 0.074 0.059 0.084 0.028
+## [221] 0.080 0.068 0.079 0.035 0.067 0.089 0.043 0.068 0.076 0.048 0.067
+## [232] 0.073 0.080 0.073 0.065 0.046 0.069 0.064 0.077 0.060 0.054 0.070
+## [243] 0.061 0.068 0.047 0.061 0.080 0.050 0.062 0.072 0.050 0.062 0.079
+## [254] 0.072 0.050 0.066 0.065 0.069 0.068 0.046 0.069 0.081 0.031 0.081
+## [265] 0.087 0.050 0.057 0.060 0.068 0.072 0.076 0.058 0.059 0.066 0.061
+## [276] 0.061 0.072 0.083 0.034 0.078 0.068 0.077 0.047 0.067 0.062 0.077
+## [287] 0.054 0.054 0.082 0.084 0.054 0.067 0.073 0.047 0.073 0.070 0.088
+## [298] 0.040 0.080 0.068 0.073 0.053 0.079 0.071 0.045 0.068 0.079 0.057
+## [309] 0.080 0.080 0.074 0.060 0.083 0.077 0.081 0.058 0.065 0.070 0.083
+## [320] 0.030 0.084 0.073 0.071 0.078 0.046 0.072 0.069 0.065 0.078 0.079
+## [331] 0.080 0.078 0.079 0.075 0.057 0.064 0.074 0.063 0.059 0.059 0.072
+## [342] 0.060 0.060 0.070 0.085 0.034 0.041 0.052 0.075 0.066 0.072 0.061
+## [353] 0.072 0.083 0.033 0.078 0.079 0.073 0.088 0.051 0.060 0.091 0.047
+## [364] 0.066 0.069 0.076 0.053 0.080 0.070 0.064 0.050 0.088 0.074 0.060
+## [375] 0.057 0.076 0.068 0.061 0.072 0.077 0.064 0.065 0.075 0.078 0.052
+## [386] 0.070 0.076 0.065 0.071 0.066 0.064 0.063 0.079 0.055 0.060 0.065
+## [397] 0.072 0.070 0.078 0.067 0.047 0.088 0.050 0.063 0.067 0.073 0.071
+## [408] 0.073 0.052 0.063 0.075 0.073 0.045 0.074 0.074 0.050 0.061 0.080
+## [419] 0.070 0.063 0.060 0.078 0.102 0.073 0.066 0.062 0.061 0.068 0.050
+## [430] 0.068 0.047 0.079 0.066 0.069 0.078 0.069 0.062 0.069 0.070 0.063
+## [441] 0.061 0.064
+## 
+## $Mean_Event_ISI
+## [1] 0.068
+## 
+## $Duration
+## [1] 29.95
+## 
+## $`1`
+##   [1] -0.065  0.015 -0.022  0.045 -0.048  0.008 -0.071  0.000 -0.016  0.041
+##  [11] -0.065  0.000 -0.008  0.075 -0.083  0.000 -0.022  0.023 -0.079  0.005
+##  [21] -0.032  0.039 -0.006  0.054 -0.005  0.071 -0.011  0.065 -0.031  0.020
+##  [31] -0.007  0.073 -0.023  0.038 -0.013  0.070 -0.007  0.058 -0.049  0.018
+##  [41] -0.007  0.069 -0.025  0.018 -0.071  0.009 -0.072  0.001 -0.012  0.024
+##  [51] -0.011  0.074 -0.013  0.074 -0.024  0.028 -0.006  0.073 -0.021  0.048
+##  [61] -0.002  0.083 -0.004  0.083 -0.019  0.066 -0.029  0.040 -0.061  0.006
+##  [71] -0.002  0.072 -0.034  0.057 -0.021  0.008 -0.004  0.074 -0.022  0.062
+##  [81] -0.037  0.011 -0.066  0.001 -0.074  0.003 -0.004  0.050 -0.050  0.008
+##  [91] -0.015  0.068 -0.031  0.001 -0.040  0.024 -0.016  0.067 -0.009  0.043
+## [101] -0.048  0.013 -0.033  0.048 -0.039  0.026 -0.017  0.082 -0.038  0.012
+## [111] -0.043  0.049 -0.049  0.015 -0.035  0.041 -0.014  0.048 -0.058  0.027
+## [121] -0.001  0.065 -0.043  0.012 -0.007  0.059 -0.023  0.046 -0.026  0.021
+## [131] -0.007  0.075 -0.035  0.042 -0.003  0.065 -0.023  0.059 -0.013  0.068
+## [141] -0.081  0.000 -0.045  0.041 -0.021  0.068 -0.008  0.045 -0.058  0.010
+## [151] -0.087  0.001 -0.090  0.001 -0.088  0.001 -0.035  0.021 -0.060  0.002
+## [161] -0.093  0.000 -0.028  0.025 -0.004  0.062 -0.018  0.030 -0.007  0.068
+## [171] -0.006  0.015 -0.020  0.062 -0.022  0.044 -0.058  0.004 -0.006  0.044
+## [181] -0.064  0.005 -0.028  0.046 -0.060  0.013 -0.027  0.022 -0.005  0.070
+## [191] -0.041  0.030 -0.001  0.086 -0.032  0.041 -0.049  0.000 -0.079  0.006
+## [201] -0.022  0.052 -0.001  0.058 -0.049  0.021 -0.001  0.086 -0.008  0.046
+## [211] -0.046  0.022 -0.049  0.009 -0.054  0.041 -0.041  0.005 -0.007  0.067
+## [221] -0.022  0.055 -0.033  0.038 -0.059  0.005 -0.079  0.003 -0.007  0.069
+## [231] -0.036  0.026 -0.002  0.074 -0.004  0.058 -0.017  0.040 -0.002  0.064
+## [241] -0.031  0.025 -0.013  0.051 -0.030  0.014 -0.004  0.044 -0.025  0.042
+## [251] -0.061  0.001 -0.011  0.071 -0.017  0.088 -0.004  0.023 -0.073  0.007
+## [261] -0.013  0.027 -0.044  0.042 -0.017  0.008 -0.011  0.057 -0.029  0.036
+## [271] -0.008  0.060 -0.034  0.007 -0.004  0.041 -0.001  0.065 -0.046  0.032
+## [281] -0.031  0.031 -0.052  0.000 -0.007  0.042 -0.013  0.043 -0.056  0.013
+## [291] -0.035  0.015 -0.017  0.054 -0.007  0.066 -0.065  0.008 -0.058  0.004
+## [301] -0.017  0.031 -0.004  0.070 -0.003  0.056 -0.014  0.070 -0.015  0.013
+## [311] -0.002  0.066 -0.078  0.001 -0.001  0.088 -0.009  0.034 -0.064  0.004
+## [321] -0.038  0.010 -0.018  0.055 -0.028  0.052 -0.027  0.046 -0.030  0.035
+## [331] -0.001  0.068 -0.010  0.054 -0.006  0.054 -0.039  0.015 -0.061  0.009
+## [341] -0.035  0.033 -0.032  0.015 -0.057  0.004 -0.005  0.045 -0.005  0.067
+## [351] -0.014  0.036 -0.054  0.008 -0.038  0.034 -0.026  0.024 -0.007  0.058
+## [361] -0.069  0.000 -0.013  0.033 -0.068  0.001 -0.014  0.017 -0.017  0.070
+## [371] -0.021  0.029 -0.007  0.053 -0.058  0.010 -0.004  0.072 -0.017  0.041
+## [381] -0.058  0.001 -0.014  0.047 -0.050  0.011 -0.004  0.079 -0.014  0.020
+## [391] -0.076  0.002 -0.014  0.063 -0.015  0.032 -0.057  0.010 -0.061  0.001
+## [401] -0.010  0.044 -0.001  0.081 -0.007  0.077 -0.040  0.014 -0.029  0.044
+## [411] -0.035  0.012 -0.007  0.081 -0.014  0.026 -0.070  0.010 -0.068  0.000
+## [421] -0.004  0.049 -0.013  0.066 -0.012  0.059 -0.024  0.021 -0.068  0.000
+## [431] -0.019  0.038 -0.058  0.022 -0.027  0.033 -0.033  0.044 -0.032  0.049
+## [441] -0.038  0.027 -0.005  0.078 -0.008  0.022 -0.005  0.068 -0.070  0.001
+## [451] -0.034  0.012 -0.007  0.062 -0.062  0.003 -0.008  0.071 -0.017  0.063
+## [461] -0.012  0.067 -0.018  0.057 -0.031  0.026 -0.001  0.073 -0.024  0.039
+## [471] -0.044  0.015 -0.012  0.048 -0.041  0.019 -0.061  0.009 -0.002  0.032
+## [481] -0.040  0.001 -0.053  0.022 -0.049  0.017 -0.022  0.039 -0.067  0.005
+## [491] -0.005  0.028 -0.073  0.005 -0.002  0.071 -0.027  0.061 -0.016  0.035
+## [501] -0.060  0.000 -0.008  0.039 -0.053  0.013 -0.012  0.041 -0.050  0.030
+## [511] -0.003  0.061 -0.046  0.004 -0.015  0.059 -0.033  0.027 -0.056  0.001
+## [521] -0.029  0.039 -0.020  0.052 -0.028  0.049 -0.016  0.048 -0.073  0.002
+## [531] -0.045  0.007 -0.069  0.001 -0.023  0.042 -0.066  0.005 -0.006  0.058
+## [541] -0.063  0.001 -0.062  0.001 -0.024  0.031 -0.047  0.013 -0.011  0.061
+## [551] -0.044  0.034 -0.040  0.027 -0.045  0.002 -0.026  0.024 -0.010  0.057
+## [561] -0.017  0.056 -0.034  0.037 -0.011  0.041 -0.054  0.009 -0.019  0.054
+## [571] -0.038  0.007 -0.002  0.072 -0.023  0.027 -0.001  0.079 -0.027  0.043
+## [581] -0.034  0.029 -0.053  0.007 -0.008  0.094 -0.100  0.002 -0.031  0.035
+## [591] -0.005  0.056 -0.030  0.038 -0.006  0.062 -0.031  0.016 -0.079  0.000
+## [601] -0.041  0.028 -0.006  0.063 -0.029  0.033 -0.014  0.056 -0.010  0.053
+## [611] -0.037  0.024 -0.005
+\end{verbatim}
+
+A list is returned that contains motor unit characteristics and at the
+end is a vector containing all the recurrence intervals.
+
+\subsection{\texorpdfstring{Discretize recurrence intervals with
+\texttt{bin()}}{Discretize recurrence intervals with bin()}}\label{discretize-recurrence-intervals-with-bin}
+
+Only 2 arguments are needed for \texttt{bin()}; a vector containing the
+recurrence intervals and a numeric indicating the bin size or bin width.
+Using \texttt{unlist()} will take the intervals from before out a list
+format and into a vector format.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{recur <-}\StringTok{ }\KeywordTok{unlist}\NormalTok{(recur}\OperatorTok{$}\StringTok{`}\DataTypeTok{1}\StringTok{`}\NormalTok{)}
+\NormalTok{binned_data <-}\StringTok{ }\KeywordTok{bin}\NormalTok{(recur, }\DataTypeTok{binwidth =} \FloatTok{0.001}\NormalTok{)}
+\NormalTok{binned_data}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        Bin Freq
+## 1   -0.101    1
+## 2   -0.100    0
+## 3   -0.099    0
+## 4   -0.098    0
+## 5   -0.097    0
+## 6   -0.096    0
+## 7   -0.095    0
+## 8   -0.094    0
+## 9   -0.093    1
+## 10  -0.092    0
+## 11  -0.091    0
+## 12  -0.090    1
+## 13  -0.089    1
+## 14  -0.088    0
+## 15  -0.087    1
+## 16  -0.086    0
+## 17  -0.085    0
+## 18  -0.084    0
+## 19  -0.083    1
+## 20  -0.082    0
+## 21  -0.081    1
+## 22  -0.080    2
+## 23  -0.079    3
+## 24  -0.078    0
+## 25  -0.077    1
+## 26  -0.076    0
+## 27  -0.075    1
+## 28  -0.074    2
+## 29  -0.073    2
+## 30  -0.072    1
+## 31  -0.071    3
+## 32  -0.070    1
+## 33  -0.069    2
+## 34  -0.068    3
+## 35  -0.067    1
+## 36  -0.066    2
+## 37  -0.065    4
+## 38  -0.064    0
+## 39  -0.063    1
+## 40  -0.062    3
+## 41  -0.061    6
+## 42  -0.060    1
+## 43  -0.059    2
+## 44  -0.058    8
+## 45  -0.057    0
+## 46  -0.056    2
+## 47  -0.055    3
+## 48  -0.054    0
+## 49  -0.053    3
+## 50  -0.052    1
+## 51  -0.051    2
+## 52  -0.050    3
+## 53  -0.049    5
+## 54  -0.048    2
+## 55  -0.047    0
+## 56  -0.046    5
+## 57  -0.045    3
+## 58  -0.044    3
+## 59  -0.043    0
+## 60  -0.042    3
+## 61  -0.041    2
+## 62  -0.040    3
+## 63  -0.039    5
+## 64  -0.038    3
+## 65  -0.037    1
+## 66  -0.036    7
+## 67  -0.035    3
+## 68  -0.034    3
+## 69  -0.033    7
+## 70  -0.032    2
+## 71  -0.031    6
+## 72  -0.030    3
+## 73  -0.029    7
+## 74  -0.028    4
+## 75  -0.027    3
+## 76  -0.026    2
+## 77  -0.025    5
+## 78  -0.024    3
+## 79  -0.023    7
+## 80  -0.022    4
+## 81  -0.021    4
+## 82  -0.020    3
+## 83  -0.019    2
+## 84  -0.018    5
+## 85  -0.017   10
+## 86  -0.016    3
+## 87  -0.015    4
+## 88  -0.014    7
+## 89  -0.013   12
+## 90  -0.012    5
+## 91  -0.011    3
+## 92  -0.010    4
+## 93  -0.009    5
+## 94  -0.008   12
+## 95  -0.007   14
+## 96  -0.006    5
+## 97  -0.005   10
+## 98  -0.004   10
+## 99  -0.003    2
+## 100 -0.002   13
+## 101 -0.001    3
+## 102  0.000   21
+## 103  0.001   13
+## 104  0.002    1
+## 105  0.003    5
+## 106  0.004    4
+## 107  0.005    6
+## 108  0.006    4
+## 109  0.007    5
+## 110  0.008    7
+## 111  0.009    4
+## 112  0.010    4
+## 113  0.011    0
+## 114  0.012    9
+## 115  0.013    2
+## 116  0.014    4
+## 117  0.015    4
+## 118  0.016    2
+## 119  0.017    1
+## 120  0.018    2
+## 121  0.019    2
+## 122  0.020    3
+## 123  0.021    4
+## 124  0.022    4
+## 125  0.023    2
+## 126  0.024    4
+## 127  0.025    5
+## 128  0.026    2
+## 129  0.027    6
+## 130  0.028    4
+## 131  0.029    1
+## 132  0.030    2
+## 133  0.031    3
+## 134  0.032    5
+## 135  0.033    4
+## 136  0.034    1
+## 137  0.035    5
+## 138  0.036    1
+## 139  0.037    0
+## 140  0.038    8
+## 141  0.039    3
+## 142  0.040    1
+## 143  0.041   11
+## 144  0.042    3
+## 145  0.043    4
+## 146  0.044    5
+## 147  0.045    5
+## 148  0.046    1
+## 149  0.047    3
+## 150  0.048    7
+## 151  0.049    0
+## 152  0.050    1
+## 153  0.051    3
+## 154  0.052    2
+## 155  0.053    2
+## 156  0.054    5
+## 157  0.055    2
+## 158  0.056    5
+## 159  0.057    5
+## 160  0.058    2
+## 161  0.059    4
+## 162  0.060    4
+## 163  0.061    2
+## 164  0.062    4
+## 165  0.063    2
+## 166  0.064    5
+## 167  0.065    3
+## 168  0.066    1
+## 169  0.067    8
+## 170  0.068    3
+## 171  0.069    2
+## 172  0.070    8
+## 173  0.071    2
+## 174  0.072    3
+## 175  0.073    3
+## 176  0.074    3
+## 177  0.075    1
+## 178  0.076    1
+## 179  0.077    0
+## 180  0.078    2
+## 181  0.079    1
+## 182  0.080    2
+## 183  0.081    1
+## 184  0.082    1
+## 185  0.083    1
+## 186  0.084    0
+## 187  0.085    0
+## 188  0.086    2
+## 189  0.087    0
+## 190  0.088    2
+## 191  0.089    0
+## 192  0.090    0
+## 193  0.091    0
+## 194  0.092    0
+## 195  0.093    0
+## 196  0.094    1
+\end{verbatim}
+
+A simple data frame is returned. \texttt{Bin} tells us how far before or
+after the discharge of our reference motor unit that the other motor
+unit discharged. Bin ``0.000'' represents the two motor units firing at
+the exact same time. \texttt{Freq} is the frequency of that interval
+happening in the trial.
+
+\subsection{\texorpdfstring{Visualization of histogram with
+\texttt{plot\_bins()}}{Visualization of histogram with plot\_bins()}}\label{visualization-of-histogram-with-plot_bins}
+
+\texttt{plot\_bins()} leverages ggplot2 to graph the binned recurrence
+intervals as a histogram. Mean bin size or average frequency of the bins
+is indicated as a red line on the graph.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot_bins}\NormalTok{(binned_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{motoRneuron_files/figure-latex/unnamed-chunk-8-1.pdf}
+From the graph, we can see that there are higher frequencies the nearer
+to ``0.000'' we get. This may indicate that there is a more than likely
+chance that these two motor units are functionally connected somehow. If
+there is a peak in this histogram, then our synchronization functions
+will determine where they are and calculate the various indices from it.
+
+\subsection{Synchronization functions}\label{synchronization-functions}
+
+\texttt{mu\_synch()} is the all-in-one function that can call 3
+different methods for determining if and where there is a peak. Both
+\texttt{recurrence\_intervals()} and \texttt{bin()} are called within
+\texttt{mu\_synch()} to perform the initial analysis. ``visual'',
+``Cumsum'', and ``Zscore'' methods are available for peak determination,
+but can also be called individually.
+
+\subsubsection{Visual Determination}\label{visual-determination}
+
+\begin{verbatim}
+visual_mu_synch(motor_unit_1, motor_unit_2, order = 1, binwidth = 0.001, plot = F)
+\end{verbatim}
+
+\begin{verbatim}
+cumsum_mu_synch(motor_unit_1, motor_unit_2, order = 1, binwidth = 0.001, plot = F)
+zscore_mu_synch(motor_unit_1, motor_unit_2, order = 1, binwidth = 0.001, plot = F)
+\end{verbatim}
+
+Motor unit vectors, order numeric, and binwidth numeric are the same
+arguments used for \texttt{recurrence\_intervals()} and \texttt{bin()}.
+Plot is a TRUE/FALSE logical on whether to output the histogram from
+\texttt{plot\_bins()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{synch_data <-}\StringTok{ }\KeywordTok{mu_synch}\NormalTok{(motor_unit_}\DecValTok{1}\NormalTok{, motor_unit_}\DecValTok{2}\NormalTok{, }\DataTypeTok{method =} \KeywordTok{c}\NormalTok{(}\StringTok{"Cumsum"}\NormalTok{, }\StringTok{"Zscore"}\NormalTok{), }\DataTypeTok{order =} \DecValTok{1}\NormalTok{, }\DataTypeTok{binwidth =} \FloatTok{0.001}\NormalTok{, }\DataTypeTok{plot =}\NormalTok{ F)}
+\end{Highlighting}
+\end{Shaded}
+
+The first half of the results for these functions are just the same
+motor unit characteristics returned by \texttt{recurrence\_intervals()}.
+Here we will only look at the synchronization indices portion of the
+data
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{synch_data}\OperatorTok{$}\StringTok{`}\DataTypeTok{Visual Indices}\StringTok{`}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## NULL
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{synch_data}\OperatorTok{$}\StringTok{`}\DataTypeTok{Cumsum Indices}\StringTok{`}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $CIS
+## [1] 2.163168
+## 
+## $kprime
+## [1] 3.79096
+## 
+## $kminus1
+## [1] 2.79096
+## 
+## $E
+## [1] 0.2110322
+## 
+## $S
+## [1] 0.08638251
+## 
+## $SI
+## [1] 0.2117218
+## 
+## $Peak.duration
+## [1] 0.01
+## 
+## $Peak.center
+## [1] 0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{synch_data}\OperatorTok{$}\StringTok{`}\DataTypeTok{Zscore Indices}\StringTok{`}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $CIS
+## [1] 1.714933
+## 
+## $kprime
+## [1] 4.284502
+## 
+## $kminus1
+## [1] 3.284502
+## 
+## $E
+## [1] 0.1673037
+## 
+## $S
+## [1] 0.06848299
+## 
+## $SI
+## [1] 0.1678505
+## 
+## $Peak.duration
+## [1] NA
+## 
+## $Peak.center
+## [1] NA
+\end{verbatim}
+
+Using the ``Visual'' method requires a bit more input by the user.
+\texttt{motoRneuron} leverages dygraphs to interactively plot the
+normalized cumulative sum of the histogram. This allows the user to
+visually pick out the boundaries of the peak, if there is one.
+
+\begin{verbatim}
+visual_synch_results <- mu_synch(motor_unit_1, motor_unit_2, method = "Visual", order = 1, binwidth = 0.001, plot = F)
+\end{verbatim}
+
+
+\end{document}
