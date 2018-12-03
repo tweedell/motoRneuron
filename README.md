@@ -179,7 +179,7 @@ Visualization of histogram with `plot_bins()`
 plot_bins(binned_data)
 ```
 
-<img src="README-unnamed-chunk-13-1.png" width="100%" /> From the graph, we can see that there are higher frequencies the nearer to "0.000" we get. This may indicate that there is a more than likely chance that these two motor units are functionally connected somehow. If there is a peak in this histogram, then our synchronization functions will determine where it is and calculate the various indices from it.
+<img src="inst/README-unnamed-chunk-13-1.png" width="100%" /> From the graph, we can see that there are higher frequencies the nearer to "0.000" we get. This may indicate that there is a more than likely chance that these two motor units are functionally connected somehow. If there is a peak in this histogram, then our synchronization functions will determine where it is and calculate the various indices from it.
 
 Synchronization functions
 -------------------------
