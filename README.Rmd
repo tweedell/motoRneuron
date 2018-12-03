@@ -49,6 +49,7 @@ devtools::install_github("tweedell/motoRneuron")
 ```
 ```{r results = "hide", message=FALSE, warning=FALSE}
 library(motoRneuron)
+library(ggplot2)
 ```
 View the package or any of the function help files by using '?'.
 ```{r eval = FALSE}
