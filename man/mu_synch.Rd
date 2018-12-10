@@ -34,13 +34,13 @@ Default is FALSE.}
 A list of lists containing motor unit data (the names of each
   discharge train used, number of discharges, the interspike intervals (ISI),
   mean ISI, and the recurrence times associated with each order) and
-  synchronization indices associated with chosen methods. 
-  CIS = frequency of synchronized discharges. 
-  k' = ratio of total discharges in peak to expected discharges in peak. 
-  k'-1 = ratio of synchronized discharges to expected discharges in peak. 
-  S = ratio of synchronized discharges to total number of discharges of both 
-  motor units. 
-  E = ratio of synchronized discharges to non-synchronized discharges. 
+  synchronization indices associated with chosen methods.
+  CIS = frequency of synchronized discharges.
+  k' = ratio of total discharges in peak to expected discharges in peak.
+  k'-1 = ratio of synchronized discharges to expected discharges in peak.
+  S = ratio of synchronized discharges to total number of discharges of both
+  motor units.
+  E = ratio of synchronized discharges to non-synchronized discharges.
   SI = ratio of synchronized discharges to reference motor unit discharges.
 }
 \description{
@@ -65,7 +65,7 @@ Keen, D.A., Chou, L., Nordstrom, M.A., Fuglevand, A.J. (2012)
   Low- and High-Threshold Motor Units. Muscle & Nerve DOI 10.1002/mus.23978
 }
 \seealso{
-visual_mu_synch, zscore_mu_synch, cumsum_mu_synch, sigmax_mu_synch
+visual_mu_synch, zscore_mu_synch, cumsum_mu_synch
 }
 \keyword{Zscore,}
 \keyword{cumulative}
