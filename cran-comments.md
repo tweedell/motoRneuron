@@ -4,8 +4,8 @@ First Submission
 Test environments
 -----------------
 
--   local Windows 8 x64, R 3.5.1
--   ubuntu 14.04.5 LTS (on travis-ci), R 3.5.1
+-   local 'Windows 8' x64, R 3.5.1
+-   'Ubuntu 14.04.5 LTS' (on 'Travis-CI), R 3.5.1
 -   win-builder (release)
 
 R CMD check results
