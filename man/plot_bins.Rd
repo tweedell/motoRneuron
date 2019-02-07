@@ -13,6 +13,10 @@ plot_bins(binned_data)
 Takes data frame containing bins labels and frequency data to produce
 histogram.
 }
+\examples{
+  a <- bin(z[10], binwidth = 0.001)
+  plot_bins(a)
+}
 \keyword{bin,}
 \keyword{discharge}
 \keyword{histogram}

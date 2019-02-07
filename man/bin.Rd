@@ -20,6 +20,10 @@ Discretizes recurrence times vector into a data frame according to specified
 binwidth parameter. A recurrence time of "0" indicates two events happening
 simultaneously. The "0" bin is treated as the center.
 }
+\examples{
+  z<- recurrence_intervals(x, y, order = 1)
+  bin(z[10], binwidth = 0.001)
+}
 \keyword{action}
 \keyword{bin,}
 \keyword{discharge}
