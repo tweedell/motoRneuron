@@ -23,8 +23,10 @@
 #'   2.106, 2.149, 2.229, 2.302, 2.384, 2.420, 2.505, 2.592, 2.644, 2.722,
 #'   2.801, 2.870, 2.926, 3.011, 3.098, 2.030, 3.183, 3.252, 3.319, 3.395,
 #'   3.469, 3.560, 3.589, 3.666, 3.744, 3.828, 3.876, 3.943, 4.020, 4.104)
-#'   y <- jitter(x)
-#'   recurrence_intervals(x, y, order = 1)
+#'   x <- sort(x)
+#'   y <- sort(jitter(x))
+#'   y <- round(y, digits = 3)
+#'   z <- recurrence_intervals(x, y, order = 1)
 
 recurrence_intervals <- function(motor_unit_1, motor_unit_2, order = 1) {
 
@@ -132,9 +134,12 @@ recurrence_intervals <- function(motor_unit_1, motor_unit_2, order = 1) {
 #'   2.106, 2.149, 2.229, 2.302, 2.384, 2.420, 2.505, 2.592, 2.644, 2.722,
 #'   2.801, 2.870, 2.926, 3.011, 3.098, 2.030, 3.183, 3.252, 3.319, 3.395,
 #'   3.469, 3.560, 3.589, 3.666, 3.744, 3.828, 3.876, 3.943, 4.020, 4.104)
-#'   y <- jitter(x)
-#'   z<- recurrence_intervals(x, y, order = 1)
-#'   bin(z[10], binwidth = 0.001)
+#'   x <- sort(x)
+#'   y <- sort(jitter(x))
+#'   y <- round(y, digits = 3)
+#'   z <- recurrence_intervals(x, y, order = 1)
+#'   a <- unlist(z[10])
+#'   b <- bin(a, binwidth = 0.001)
 
 bin <- function(recurrences, binwidth = 0.001){
 
@@ -186,10 +191,13 @@ bin <- function(recurrences, binwidth = 0.001){
 #'   2.106, 2.149, 2.229, 2.302, 2.384, 2.420, 2.505, 2.592, 2.644, 2.722,
 #'   2.801, 2.870, 2.926, 3.011, 3.098, 2.030, 3.183, 3.252, 3.319, 3.395,
 #'   3.469, 3.560, 3.589, 3.666, 3.744, 3.828, 3.876, 3.943, 4.020, 4.104)
-#'   y <- jitter(x)
-#'   z<- recurrence_intervals(x, y, order = 1)
-#'   a <- bin(z[10], binwidth = 0.001)
-#'   plot_bins(a)
+#'   x <- sort(x)
+#'   y <- sort(jitter(x))
+#'   y <- round(y, digits = 3)
+#'   z <- recurrence_intervals(x, y, order = 1)
+#'   a <- unlist(z[10])
+#'   b <- bin(a, binwidth = 0.001)
+#'   plot_bins(b)
 
 plot_bins <- function(binned_data) {
 

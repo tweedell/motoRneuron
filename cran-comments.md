@@ -1,4 +1,11 @@
-First Submission
+Re-submission
+
+This is a resubmission. In this version I have:
+
+* added examples to @example for each function. 
+* added method references (Authors (year) <doi..>) to Description field of DESCRIPTION file. 
+
+
 ----------------
 
 Test environments
